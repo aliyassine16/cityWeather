@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>testing of the ErrorHandler.js</title>
+    <script src="../js/ErrorHandler.js"></script>
+    <script>
+    function test(error,expected) {
+        results.total++;
+        
+		var errorHandler = new ErrorHandler();
+		var result=errorHandler.showError(error);
+		
+        if (result !== expected) {
+            results.bad++;            
+			console.log("Expected " + expected + ", but was " + result);
+        }
+    }
+    var results = {
+        total: 0,
+        bad: 0
+    };
+    test("error no 1",undefined);
+    test("city name is incorrect",undefined);
+    test("newyork",undefined);
+    test(undefined,undefined);
+    console.log("Of " + results.total + " tests, " + results.bad + " failed, "+ (results.total - results.bad) + " passed.");
+    </script>
+</head>
+<body>

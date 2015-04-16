@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="ngAppCityWeather">
+<head>
+
+<meta charset="UTF-8">
+<title>City Weather</title>
+<script type="text/javascript" src="js/cities.js"></script>
+<script type="text/javascript" src="js/UrlFormatter.js"></script>
+<script type="text/javascript" src="js/ErrorHandler.js"></script>
+<script src= "js/angular.min.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="divcontainer" ng-controller="ngAppCityWeatherController">
+    <div class="divwrapper">
+        <div class="divbox divheader">
+            <div class="header">
+                <h1>UK City Weather</h1>
+            </div>
+        </div>
+        <div class="divbox divmenu">
+            <div class="menuitem" ng-repeat="city in cities" ng-click="loadWeather(city.name)">{{city.name}} </div>
+			<br>
+			<div class="menuitem"><button ng-click="sortAsc()"> Sort Temp &#8451 ASC</button></div>
+			<div class="menuitem"><button ng-click="sortDesc()">Sort Temp &#8451 Desc</button> </div>
+        </div>
+        <div class="divbox divmain">
+            <div class="main">                
+                
+				<p ng-show="isErrorOccured" id="errorMessage"></p>
+				<p ng-show="isContentLoading"><img src="images/loader.gif"/></p> 
+				
+				<div ng-show="isLoaded">					
+					<h2>{{weatherDetails.name}} Weather Details:</h2>                    
+                    <p ng-repeat="weather in weatherDetails.weather">Current Weather Conditions:<br> <img src="http://openweathermap.org/img/w/{{weather.icon}}.png" /><br> {{weather.main}},{{weather.description}} </p>    
+					<p>Location:<br>Longitude: {{weatherDetails.coord.lon}} <br>Latitude: {{weatherDetails.coord.lat}} </p>
+					<p>Temperature:{{weatherDetails.main.temp}} &#8451 <br/>
+					   Temperature Range:[{{weatherDetails.main.temp_min}} &#8451 - {{weatherDetails.main.temp_max}} &#8451 ]<br/></p>						
+					<p>Current humidity:{{weatherDetails.main.humidity}}   </p>
+					<p>Current atmospheric pressure:{{weatherDetails.main.pressure}}</p>
+				</div>		
+				
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>testing of the UrlFormatter.js</title>
+    <script src="../js/UrlFormatter.js"></script>
+    <script>
+    function test(cityName,expected) {
+        results.total++;
+        
+		var urlFormatter = new UrlFormatter();
+		var result=urlFormatter.getWeatherURL(cityName);
+		
+        if (result !== expected) {
+            results.bad++;            
+			console.log("Expected " + expected + ", but was " + result);
+        }
+    }
+    var results = {
+        total: 0,
+        bad: 0
+    };
+    test("london","http://api.openweathermap.org/data/2.5/weather?q=london,uk&units=metric");
+    test("luton","http://api.openweathermap.org/data/2.5/weather?q=luton,uk&units=metric");
+    test("_ _","http://api.openweathermap.org/data/2.5/weather?q=_%20_,uk&units=metric");
+    test(undefined,"http://api.openweathermap.org/data/2.5/weather?q=undefined,uk&units=metric");
+    console.log("Of " + results.total + " tests, " + results.bad + " failed, "+ (results.total - results.bad) + " passed.");
+    </script>
+</head>
+<body>
